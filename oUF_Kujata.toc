@@ -1,0 +1,6 @@
+## Interface: 40200
+## Title: oUF Kujata
+## Author: kujata
+## Version: 1.0
+## Deps: oUF
+## Notes: Kujata unit frames.  Requires oUF.
