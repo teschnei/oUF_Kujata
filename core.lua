@@ -45,7 +45,6 @@ local function CreateTargetStyle(self)
     self.Power.colorPower = true
     self.Power.bg.multiplier = 0.2
     lib.gen_castbar(self)
-    --lib.createBuffs(self)
     lib.createDebuffs(self)
 	if(IsAddOnLoaded'oUF_BuffFilter') then
 		self.Debuffs.CustomFilter=oUF_BuffFilter_Debuffs
@@ -63,14 +62,10 @@ local function CreateToTStyle(self)
     lib.moveme(self)
     lib.gen_hpbar(self)
     lib.gen_hpstrings(self)
-    --lib.gen_ppbar(self)
     self.Health.colorTapping = true
     self.Health.colorDisconnected = true
     self.Health.colorHealth = true
     self.Health.bg.multiplier = 0.2
-    --self.Power.colorPower = true
-    --self.Power.bg.multiplier = 0.2
-    --lib.createDebuffs(self)
 end 
   
   --the focus style
@@ -141,7 +136,6 @@ local function CreatePartyStyle(self)
     self.Health.bg.multiplier = 0.3
     self.Power.colorPower = true
     self.Power.bg.multiplier = 0.3
-  --  lib.gen_portrait(self)
     lib.createDebuffs(self)
 end  
 

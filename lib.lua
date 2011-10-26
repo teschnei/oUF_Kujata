@@ -154,7 +154,7 @@ lib.gen_castbar = function(f)
     b:SetTexture(cfg.statusbar_texture)
     b:SetAllPoints(s)
     f.Castbar = s
-    --f.Health.bg = b
+    f.Castbar.bg = b
 end
 --[[lib.gen_castbar = function(f)
     local s = CreateFrame("StatusBar", "oUF_SimpleCastbar"..f.mystyle, f)
