@@ -4,3 +4,8 @@
 ## Version: 1.0
 ## Deps: oUF
 ## Notes: Kujata unit frames.  Requires oUF.
+## X-Category: UnitFrame
+
+cfg.lua
+lib.lua
+core.lua
