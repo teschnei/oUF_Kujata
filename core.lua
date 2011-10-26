@@ -45,8 +45,11 @@ local function CreateTargetStyle(self)
     self.Power.colorPower = true
     self.Power.bg.multiplier = 0.2
     lib.gen_castbar(self)
-    lib.createBuffs(self)
+    --lib.createBuffs(self)
     lib.createDebuffs(self)
+	if(IsAddOnLoaded'oUF_BuffFilter') then
+		self.Debuffs.CustomFilter=oUF_BuffFilter_Debuffs
+	end
 end  
   
   --the tot style
@@ -60,14 +63,14 @@ local function CreateToTStyle(self)
     lib.moveme(self)
     lib.gen_hpbar(self)
     lib.gen_hpstrings(self)
-    lib.gen_ppbar(self)
+    --lib.gen_ppbar(self)
     self.Health.colorTapping = true
     self.Health.colorDisconnected = true
     self.Health.colorHealth = true
     self.Health.bg.multiplier = 0.2
-    self.Power.colorPower = true
-    self.Power.bg.multiplier = 0.2
-    lib.createDebuffs(self)
+    --self.Power.colorPower = true
+    --self.Power.bg.multiplier = 0.2
+    --lib.createDebuffs(self)
 end 
   
   --the focus style
@@ -149,22 +152,22 @@ end
 
 
 if cfg.showplayer then
-    oUF:RegisterStyle("oUF_SimplePlayer", CreatePlayerStyle)
-    oUF:SetActiveStyle("oUF_SimplePlayer")
-    oUF:Spawn("player", "oUF_Simple_PlayerFrame")  
+    oUF:RegisterStyle("oUF_KujataPlayer", CreatePlayerStyle)
+    oUF:SetActiveStyle("oUF_KujataPlayer")
+    oUF:Spawn("player", "oUF_Kujata_PlayerFrame")  
 end
   
 if cfg.showtarget then
-    oUF:RegisterStyle("oUF_SimpleTarget", CreateTargetStyle)
-    oUF:SetActiveStyle("oUF_SimpleTarget")
-    oUF:Spawn("target", "oUF_Simple_TargetFrame")  
+    oUF:RegisterStyle("oUF_KujataTarget", CreateTargetStyle)
+    oUF:SetActiveStyle("oUF_KujataTarget")
+    oUF:Spawn("target", "oUF_Kujata_TargetFrame")  
 end
 
 
 if cfg.showtot then
-    oUF:RegisterStyle("oUF_SimpleToT", CreateToTStyle)
-    oUF:SetActiveStyle("oUF_SimpleToT")
-    oUF:Spawn("targettarget", "oUF_Simple_ToTFrame")  
+    oUF:RegisterStyle("oUF_KujataToT", CreateToTStyle)
+    oUF:SetActiveStyle("oUF_KujataToT")
+    oUF:Spawn("targettarget", "oUF_Kujata_ToTFrame")  
 end
   
  --[[ if cfg.showfocus then
@@ -180,8 +183,8 @@ end
   end]]
   
 if cfg.showparty then
-    oUF:RegisterStyle("oUF_SimpleParty", CreatePartyStyle)
-    oUF:SetActiveStyle("oUF_SimpleParty")
+    oUF:RegisterStyle("oUF_KujataParty", CreatePartyStyle)
+    oUF:SetActiveStyle("oUF_KujataParty")
 
 
    local party = oUF:SpawnHeader("oUF_Party", nil, "raid,party,solo", "showParty", true, "showPlayer", true, "yOffset", -50)

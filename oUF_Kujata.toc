@@ -3,6 +3,7 @@
 ## Author: kujata
 ## Version: 1.0
 ## Deps: oUF
+## OptionalDeps: oUF_BuffFilter
 ## Notes: Kujata unit frames.  Requires oUF.
 ## X-Category: UnitFrame
 
