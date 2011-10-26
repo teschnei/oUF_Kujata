@@ -105,10 +105,14 @@ lib.gen_hpstrings = function(f)
     name:SetPoint("RIGHT", hpval, "LEFT", -5, 0)
     
     f:Tag(name, "[name]")
-    f:Tag(hpval, "[curhp]/[perhp]%")
+	if f.mystyle=="player" then
+		f:Tag(hpval, "")
+	else
+		f:Tag(hpval, "[curhp]")	
+	end
 end
   
---gen healthbar func
+--gen power bar func
 lib.gen_ppbar = function(f)
     --statusbar
     local s = CreateFrame("StatusBar", nil, f)
@@ -132,6 +136,27 @@ end
   
 --gen castbar
 lib.gen_castbar = function(f)
+    --statusbar
+    local s = CreateFrame("StatusBar", nil, f)
+    s:SetStatusBarTexture(cfg.statusbar_texture)
+	s:SetStatusBarColor(1,0.8,0,1)
+    s:SetHeight(f.height)
+    s:SetWidth(f.width)
+    s:SetPoint("CENTER",0,0)
+    --helper
+    local h = CreateFrame("Frame", nil, s)
+    h:SetFrameLevel(0)
+    h:SetPoint("TOPLEFT",-5,5)
+    h:SetPoint("BOTTOMRIGHT",5,-5)
+    lib.gen_backdrop(h)
+    --bg
+    local b = s:CreateTexture(nil, "BACKGROUND")
+    b:SetTexture(cfg.statusbar_texture)
+    b:SetAllPoints(s)
+    f.Castbar = s
+    --f.Health.bg = b
+end
+--[[lib.gen_castbar = function(f)
     local s = CreateFrame("StatusBar", "oUF_SimpleCastbar"..f.mystyle, f)
     s:SetHeight(f.height)
     s:SetWidth(f.width)
@@ -195,7 +220,7 @@ lib.gen_castbar = function(f)
     f.Castbar.Time = t
     f.Castbar.Icon = i
 end
-  
+  ]]
 
 lib.PostCreateIcon = function(self, button)
     button.cd:SetReverse()
