@@ -2,7 +2,6 @@ local addon, ns = ...
 local cfg = ns.cfg
 local lib = CreateFrame("Frame")  
     
---backdrop table
 local backdrop_tab = { 
     bgFile = cfg.backdrop_texture, 
     edgeFile = cfg.backdrop_edge_texture,
@@ -16,8 +15,7 @@ local backdrop_tab = {
 		bottom = 5,
     },
 }
-  
-  --backdrop func
+
 lib.gen_backdrop = function(f)
     f:SetBackdrop(backdrop_tab);
     f:SetBackdropColor(0,0,0,0.7)
@@ -33,8 +31,7 @@ lib.menu = function(self)
         ToggleDropDownMenu(1, nil, _G[cunit.."FrameDropDown"], "cursor", 0, 0)
     end
 end
-  
-  --moveme func
+
 lib.moveme = function(f)
     f:SetMovable(true)
     f:SetUserPlaced(true)
@@ -43,14 +40,14 @@ lib.moveme = function(f)
 	f:SetScript("OnDragStart",function(self) self:StartMoving() end)
 	f:SetScript("OnDragStop",function(self) self:StopMovingOrSizing() end)
 end
-  --fontstring func
+
 lib.gen_fontstring = function(f, name, size, outline)
     local fs = f:CreateFontString(nil, "OVERLAY")
     fs:SetFont(name, size, outline)
     fs:SetShadowColor(0,0,0,1)
     return fs
 end  
-  
+
 local dropdown=CreateFrame("Frame", addon.."DropDown",UIParent,"UIDropDownMenuTemplate")
 UIDropDownMenu_Initialize(dropdown,function(self)
 	local unit=self:GetParent().unit
@@ -95,29 +92,28 @@ do
 		end
 	end
 end
-  --gen healthbar func
+
 lib.gen_hpbar = function(f)
-    --statusbar
     local s = CreateFrame("StatusBar", nil, f)
     s:SetStatusBarTexture(cfg.statusbar_texture)
     s:SetHeight(f.height)
     s:SetWidth(f.width)
+	--s:SetFrameLevel(0)
     s:SetPoint("CENTER",0,0)
-    --helper
+	
     local h = CreateFrame("Frame", nil, s)
     h:SetFrameLevel(0)
     h:SetPoint("TOPLEFT",-5,5)
     h:SetPoint("BOTTOMRIGHT",5,-5)
     lib.gen_backdrop(h)
-    --bg
+
     local b = s:CreateTexture(nil, "BACKGROUND")
     b:SetTexture(cfg.statusbar_texture)
     b:SetAllPoints(s)
     f.Health = s
     f.Health.bg = b
 end
-  
-  --gen hp strings func
+
 lib.gen_hpstrings = function(f)
 	local name, hpval
 	if not f.hidename then
@@ -125,7 +121,6 @@ lib.gen_hpstrings = function(f)
 		name:SetPoint("LEFT", f.Health, "LEFT", 2, 0)
 		name:SetJustifyH("LEFT")
 	end
-    --health/name text strings
     
 	hpval = lib.gen_fontstring(f.Health, cfg.font, 13, "THINOUTLINE")
     hpval:SetPoint("RIGHT", f.Health, "RIGHT", -2, 0)
@@ -133,7 +128,6 @@ lib.gen_hpstrings = function(f)
 		hpval:SetJustifyH("CENTER")
 		hpval:SetPoint("LEFT",f.Health,"LEFT",2,0)
 	else
-    --this will make the name go "..." when its to long
 		name:SetPoint("RIGHT", hpval, "LEFT", -5, 0)
     
 		if f.nametag then
@@ -145,25 +139,23 @@ lib.gen_hpstrings = function(f)
 	if f.hptag then
 		f:Tag(hpval,f.hptag)
 	else
-		f:Tag(hpval,"[curhp]/[perhp]%")
+		f:Tag(hpval,"[ku:default]")
 	end
 end
   
---gen power bar func
 lib.gen_ppbar = function(f)
-    --statusbar
     local s = CreateFrame("StatusBar", nil, f)
     s:SetStatusBarTexture(cfg.statusbar_texture)
     s:SetHeight(f.height/5)
     s:SetWidth(f.width)
     s:SetPoint("TOP",f,"BOTTOM",0,-3)
-    --helper
+
     local h = CreateFrame("Frame", nil, s)
     h:SetFrameLevel(0)
     h:SetPoint("TOPLEFT",-5,5)
     h:SetPoint("BOTTOMRIGHT",5,-5)
     lib.gen_backdrop(h)
-    --bg
+
     local b = s:CreateTexture(nil, "BACKGROUND")
     b:SetTexture(cfg.statusbar_texture)
     b:SetAllPoints(s)
@@ -171,7 +163,7 @@ lib.gen_ppbar = function(f)
     f.Power.bg = b
 end
   
---gen castbar
+
 lib.gen_castbar = function(f)
     --statusbar
     local s = CreateFrame("StatusBar", nil, f)
@@ -185,13 +177,13 @@ lib.gen_castbar = function(f)
     h:SetFrameLevel(0)
     h:SetPoint("TOPLEFT",-5,5)
     h:SetPoint("BOTTOMRIGHT",5,-5)
-    lib.gen_backdrop(h)
+    --lib.gen_backdrop(h)
     --bg
-    local b = s:CreateTexture(nil, "BACKGROUND")
+    --[[local b = s:CreateTexture(nil, "BACKGROUND")
     b:SetTexture(cfg.statusbar_texture)
-    b:SetAllPoints(s)
+    b:SetAllPoints(s)]]
     f.Castbar = s
-    f.Castbar.bg = b
+    --f.Castbar.bg = b
 end
 --[[lib.gen_castbar = function(f)
     local s = CreateFrame("StatusBar", "oUF_SimpleCastbar"..f.mystyle, f)

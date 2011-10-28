@@ -12,9 +12,9 @@ cfg.showraid=true
 cfg.allow_frame_movement = true
 cfg.frames_locked = false 
   
-cfg.statusbar_texture = "Interface\\AddOns\\oUF_Simple2\\media\\statusbar"
-cfg.backdrop_texture = "Interface\\AddOns\\oUF_Simple2\\media\\backdrop"
-cfg.backdrop_edge_texture = "Interface\\AddOns\\oUF_Simple2\\media\\backdrop_edge"
+cfg.statusbar_texture = "Interface\\AddOns\\oUF_Kujata\\media\\statusbar"
+cfg.backdrop_texture = "Interface\\AddOns\\oUF_Kujata\\media\\backdrop"
+cfg.backdrop_edge_texture = "Interface\\AddOns\\oUF_Kujata\\media\\backdrop_edge"
 cfg.font = "FONTS\\FRIZQT__.ttf"   
   
 ns.cfg = cfg

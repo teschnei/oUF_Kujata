@@ -14,48 +14,42 @@ local initHeader = function(self)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
 	lib.gen_hpbar(self)
 	lib.gen_hpstrings(self)
-	--if self.mystyle=="player" or "target" then
-
-	--end
 end
 
 local init=function(self)
 	self:SetSize(self.width, self.height)
---	self:SetPoint("CENTER",UIParent,"CENTER",0,0)
 	initHeader(self)
 end
-  --the player style
+
 local function CreatePlayerStyle(self)
-    self.width = 250
+    self.width = 200
     self.height = 25
     self.scale = 0.8
     self.mystyle = "player"
 	self.hptag=""
-	self:SetPoint("CENTER",UIParent,"CENTER",-500,0)
+	self:SetPoint("CENTER",UIParent,"CENTER",-275,-300)
     init(self)
 	lib.gen_ppbar(self)
     self.Health.colorHealth = true
     self.Health.bg.multiplier = 0.2
-    self.Power.colorPower = true
+	self.Power.colorClass = true
     self.Power.bg.multiplier = 0.2
     lib.gen_castbar(self)
 end  
   
-  --the target style
 local function CreateTargetStyle(self)
-    --style specific stuff
-    self.width = 250
+    self.width = 200
     self.height = 25
     self.scale = 0.8
     self.mystyle = "target"
-	self:SetPoint("CENTER",UIParent,"CENTER",500,0)
+	self:SetPoint("CENTER",UIParent,"CENTER",275,-300)
     init(self)
 	lib.gen_ppbar(self)
 	self.Health.colorHealth=true
     self.Health.colorTapping = true
     self.Health.colorDisconnected = true
     self.Health.bg.multiplier = 0.2
-    self.Power.colorPower = true
+	self.Power.colorClass = true
     self.Power.bg.multiplier = 0.2
     lib.gen_castbar(self)
     lib.createDebuffs(self)
@@ -63,15 +57,14 @@ local function CreateTargetStyle(self)
 		self.Debuffs.CustomFilter=oUF_BuffFilter_Debuffs
 	end
 end  
-  
-  --the tot style
+
 local function CreateToTStyle(self)
-    --style specific stuff
-    self.width = 150
-    self.height = 25
+    self.width = 125
+    self.height = 20
     self.scale = 0.8
     self.mystyle = "tot"
-	self:SetPoint("CENTER",UIParent,"CENTER",300,100)
+	self.hptag="[ku:missinghp]"
+	self:SetPoint("CENTER",UIParent,"CENTER",313,-272)
     init(self)
     self.Health.colorTapping = true
     self.Health.colorDisconnected = true
@@ -79,9 +72,7 @@ local function CreateToTStyle(self)
     self.Health.bg.multiplier = 0.2
 end 
   
-  --the focus style
  --[[ local function CreateFocusStyle(self)
-    --style specific stuff
     self.width = 180
     self.height = 25
     self.scale = 0.8
@@ -103,9 +94,7 @@ end
     lib.createDebuffs(self)
   end  ]]
   
-  --the pet style
  --[[ local function CreatePetStyle(self)
-    --style specific stuff
     self.width = 180
     self.height = 25
     self.scale = 0.8
@@ -128,19 +117,17 @@ end
   end  ]]
 
 
-  --the party style
 local function CreatePartyStyle(self)
-    --style specific stuff
-    self.width = 180
+    self.width = 85
     self.height = 25
     self.mystyle = "party"
-	self.hptag="[missinghp]"
+	self.hptag="[ku:missinghp]"
 	lib.gen_ppbar(self)
 	initHeader(self)
     self.Health.colorDisconnected = true
     self.Health.colorHealth = true
     self.Health.bg.multiplier = 0.3
-    self.Power.colorPower = true
+	self.Power.colorClass = true
     self.Power.bg.multiplier = 0.3
 end  
 
@@ -149,21 +136,15 @@ local function CreateRaidStyle(self)
 	self.width=85
 	self.height=25
 	self.mystyle="raid"
-	self.hptag="[missinghp]"
+	self.hptag="[ku:missinghp]"
 	lib.gen_ppbar(self)
 	initHeader(self)
 	self.Health.colorDisconnected=true
 	self.Health.colorHealth=true
 	self.Health.bg.multiplier = 0.3
-    self.Power.colorPower = true
+	self.Power.colorClass = true
     self.Power.bg.multiplier = 0.3
 end
-
-
-  -----------------------------
-  -- SPAWN UNITS
-  -----------------------------
-
 
 if cfg.showplayer then
     oUF:RegisterStyle("oUF_KujataPlayer", CreatePlayerStyle)
@@ -211,13 +192,13 @@ if cfg.showparty then
 		"showRaid",		false,
 		"point",		"RIGHT",
 		"yOffset",		0,
-		"xOffset",		-5,
-			"oUF-initialConfigFunction", [[
-				self:SetHeight(25)
-				self:SetWidth(85)
-			]]
+		"xOffset",		-7,
+		"oUF-initialConfigFunction", [[
+			self:SetHeight(25)
+			self:SetWidth(85)
+		]]
 	)
-	party:SetPoint("CENTER",UIParent,"CENTER",830,-485)
+	party:SetPoint("BOTTOMRIGHT",UIParent,"BOTTOMRIGHT",-40,40)
 end
 
 if cfg.showraid then
@@ -241,8 +222,8 @@ if cfg.showraid then
 		"showRaid",				true,
 		"point",				"RIGHT",
 		"yOffset",				0,
-		"xOffset",				-5,
-		"columnSpacing",		17,
+		"xOffset",				-7,
+		"columnSpacing",		15,
 		"columnAnchorPoint",	"BOTTOM",
 		"groupFilter",			"1,2,3,4,5,6,7,8",
 		"groupBy",				"GROUP",
@@ -250,12 +231,12 @@ if cfg.showraid then
 		"sortMethod",			"NAME",
 		"maxColumns",			8,
 		"unitsPerColumn",		5,
-			"oUF-initialConfigFunction", [[
-				self:SetHeight(25)
-				self:SetWidth(85)
-			]]
+		"oUF-initialConfigFunction", [[
+			self:SetHeight(25)
+			self:SetWidth(85)
+		]]
 	)
-	raid10:SetPoint("CENTER",UIParent,"CENTER",830,-485)
+	raid10:SetPoint("BOTTOMRIGHT",UIParent,"BOTTOMRIGHT",-40,40)
 	
 	--25
 	oUF:RegisterStyle("oUF_KujataRaid25", CreateRaidStyle)
@@ -268,23 +249,23 @@ if cfg.showraid then
 		"showSolo",				false,
 		"showParty",			false,
 		"showRaid",				true,
-		"point",				"LEFT",
+		"point",				"RIGHT",
 		"yOffset",				0,
-		"xOffset",				10,
-		"columnSpacing",		17,
-		"columnAnchorPoint",	"TOP",
+		"xOffset",				-7,
+		"columnSpacing",		15,
+		"columnAnchorPoint",	"BOTTOM",
 		"groupFilter",			"1,2,3,4,5,6,7,8",
 		"groupBy",				"GROUP",
 		"GroupingOrder",		"1,2,3,4,5,6,7,8",
 		"sortMethod",			"NAME",
 		"maxColumns",			8,
 		"unitsPerColumn",		5,
-			"oUF-initialConfigFunction", [[
-				self:SetHeight(25)
-				self:SetWidth(100)
-			]]
+		"oUF-initialConfigFunction", [[
+			self:SetHeight(25)
+			self:SetWidth(85)
+		]]
 	)
-	raid25:SetPoint("CENTER",UIParent,"CENTER",830,-485)
+	raid25:SetPoint("BOTTOMRIGHT",UIParent,"BOTTOMRIGHT",-40,40)
 	
 	--40
 	oUF:RegisterStyle("oUF_KujataRaid40", CreateRaidStyle)
@@ -297,22 +278,22 @@ if cfg.showraid then
 		"showSolo",				false,
 		"showParty",			false,
 		"showRaid",				true,
-		"point",				"LEFT",
+		"point",				"RIGHT",
 		"yOffset",				0,
-		"xOffset",				10,
-		"columnSpacing",		17,
-		"columnAnchorPoint",	"TOP",
+		"xOffset",				-7,
+		"columnSpacing",		15,
+		"columnAnchorPoint",	"BOTTOM",
 		"groupFilter",			"1,2,3,4,5,6,7,8",
 		"groupBy",				"GROUP",
 		"GroupingOrder",		"1,2,3,4,5,6,7,8",
 		"sortMethod",			"NAME",
 		"maxColumns",			8,
 		"unitsPerColumn",		5,
-			"oUF-initialConfigFunction", [[
-				self:SetHeight(25)
-				self:SetWidth(100)
-			]]
+		"oUF-initialConfigFunction", [[
+			self:SetHeight(25)
+			self:SetWidth(85)
+		]]
 	)
-	raid40:SetPoint("CENTER",UIParent,"CENTER",830,-485)
+	raid40:SetPoint("BOTTOMRIGHT",UIParent,"BOTTOMRIGHT",-40,40)
 end
 	
