@@ -32,14 +32,14 @@ lib.menu = function(self)
     end
 end
 
-lib.moveme = function(f)
+--[[lib.moveme = function(f)
     f:SetMovable(true)
     f:SetUserPlaced(true)
 	f:EnableMouse(true)
 	f:RegisterForDrag("LeftButton","RightButton")
 	f:SetScript("OnDragStart",function(self) self:StartMoving() end)
 	f:SetScript("OnDragStop",function(self) self:StopMovingOrSizing() end)
-end
+end]]
 
 lib.gen_fontstring = function(f, name, size, outline)
     local fs = f:CreateFontString(nil, "OVERLAY")
@@ -125,7 +125,7 @@ lib.gen_hpstrings = function(f)
 	hpval = lib.gen_fontstring(f.Health, cfg.font, 13, "THINOUTLINE")
     hpval:SetPoint("RIGHT", f.Health, "RIGHT", -2, 0)
 	if f.hidename then
-		hpval:SetJustifyH("CENTER")
+		hpval:SetJustifyH("LEFT")
 		hpval:SetPoint("LEFT",f.Health,"LEFT",2,0)
 	else
 		name:SetPoint("RIGHT", hpval, "LEFT", -5, 0)
@@ -165,38 +165,16 @@ end
   
 
 lib.gen_castbar = function(f)
-    --statusbar
-    local s = CreateFrame("StatusBar", nil, f)
-    s:SetStatusBarTexture(cfg.statusbar_texture)
-	s:SetStatusBarColor(1,0.8,0,1)
-    s:SetHeight(f.height)
-    s:SetWidth(f.width)
-    s:SetPoint("CENTER",0,0)
-    --helper
-    local h = CreateFrame("Frame", nil, s)
-    h:SetFrameLevel(0)
-    h:SetPoint("TOPLEFT",-5,5)
-    h:SetPoint("BOTTOMRIGHT",5,-5)
-    --lib.gen_backdrop(h)
-    --bg
-    --[[local b = s:CreateTexture(nil, "BACKGROUND")
-    b:SetTexture(cfg.statusbar_texture)
-    b:SetAllPoints(s)]]
-    f.Castbar = s
-    --f.Castbar.bg = b
-end
---[[lib.gen_castbar = function(f)
+  
     local s = CreateFrame("StatusBar", "oUF_SimpleCastbar"..f.mystyle, f)
-    s:SetHeight(f.height)
+    s:SetHeight(20)
     s:SetWidth(f.width)
     if f.mystyle == "player" then
-        lib.moveme(s)
-        s:SetPoint("CENTER",UIParent,0,-50)
+		s:SetPoint("CENTER",0,-37)
     elseif f.mystyle == "target" then
-        lib.moveme(s)
-        s:SetPoint("CENTER",UIParent,0,0)
+		s:SetPoint("CENTER",0,-37)
     else
-        s:SetPoint("BOTTOM",f,"TOP",0,5)
+		s:SetPoint("BOTTOM",f,"TOP",0,5)
     end
     s:SetStatusBarTexture(cfg.statusbar_texture)
     s:SetStatusBarColor(1,0.8,0,1)
@@ -216,11 +194,11 @@ end
     txt:SetPoint("LEFT", 2, 0)
     txt:SetJustifyH("LEFT")
     --time
-    local t = lib.gen_fontstring(s, cfg.font, 13, "THINOUTLINE")
+    local t = lib.gen_fontstring(s, cfg.font, 16, "THINOUTLINE")
     t:SetPoint("RIGHT", -2, 0)
     txt:SetPoint("RIGHT", t, "LEFT", -5, 0)
     
-    --icon
+    --[[icon
     local i = s:CreateTexture(nil, "ARTWORK")
     i:SetWidth(f.height)
     i:SetHeight(f.height)
@@ -232,24 +210,23 @@ end
     h2:SetFrameLevel(0)
     h2:SetPoint("TOPLEFT",i,"TOPLEFT",-5,5)
     h2:SetPoint("BOTTOMRIGHT",i,"BOTTOMRIGHT",5,-5)
-    lib.gen_backdrop(h2)
+    lib.gen_backdrop(h2)]]
     
     if f.mystyle == "player" then
-        --latency only for player unit
-        local z = s:CreateTexture(nil,"OVERLAY")
-        z:SetTexture(cfg.statusbar_texture)
-        z:SetVertexColor(0.6,0,0,0.6)
-        z:SetPoint("TOPRIGHT")
-        z:SetPoint("BOTTOMRIGHT")
-        s.SafeZone = z
+		--latency only for player unit
+		local z = s:CreateTexture(nil,"OVERLAY")
+		z:SetTexture(cfg.statusbar_texture)
+		z:SetVertexColor(0.6,0,0,0.6)
+		z:SetPoint("TOPRIGHT")
+		z:SetPoint("BOTTOMRIGHT")
+		s.SafeZone = z
     end
     
     f.Castbar = s
     f.Castbar.Text = txt
     f.Castbar.Time = t
-    f.Castbar.Icon = i
+    --f.Castbar.Icon = i
 end
-  ]]
 
 lib.PostCreateIcon = function(self, button)
     button.cd:SetReverse()
@@ -305,11 +282,11 @@ lib.createDebuffs = function(f)
     b.spacing = 5
     b.onlyShowPlayer = false
     b:SetHeight((b.size+b.spacing)*4)
-    b:SetWidth(f.width)
-    b:SetPoint("TOPLEFT", f.Power, "BOTTOMLEFT", 0, -5)
-    b.initialAnchor = "TOPLEFT"
+    b:SetWidth(f.width/2)
+    b:SetPoint("BOTTOMLEFT", f.Health, "TOPLEFT", 0, 5)
+    b.initialAnchor = "BOTTOMLEFT"
     b["growth-x"] = "RIGHT"
-    b["growth-y"] = "DOWN"
+    b["growth-y"] = "UP"
     b.PostCreateIcon = lib.PostCreateIcon
     f.Debuffs = b
 end

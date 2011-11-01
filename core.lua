@@ -59,12 +59,12 @@ local function CreateTargetStyle(self)
 end  
 
 local function CreateToTStyle(self)
-    self.width = 125
+    self.width = 100
     self.height = 20
     self.scale = 0.8
     self.mystyle = "tot"
 	self.hptag="[ku:missinghp]"
-	self:SetPoint("CENTER",UIParent,"CENTER",313,-272)
+	self:SetPoint("CENTER",UIParent,"CENTER",325,-271)
     init(self)
     self.Health.colorTapping = true
     self.Health.colorDisconnected = true
@@ -72,27 +72,19 @@ local function CreateToTStyle(self)
     self.Health.bg.multiplier = 0.2
 end 
   
- --[[ local function CreateFocusStyle(self)
-    self.width = 180
-    self.height = 25
+local function CreateFocusStyle(self)
+    self.width = 125
+    self.height = 20
     self.scale = 0.8
-    self.mystyle = "focus"
-    lib.init(self)
-    lib.moveme(self)
-    lib.gen_hpbar(self)
-    lib.gen_hpstrings(self)
-    lib.gen_ppbar(self)
+    self.mystyle = "tot"
+	self.hptag="[ku:missinghp]"
+	self:SetPoint("CENTER",UIParent,"CENTER",0,-312)
+    init(self)
+    self.Health.colorTapping = true
     self.Health.colorDisconnected = true
-    self.Health.colorClass = true
-    self.Health.colorReaction = true
     self.Health.colorHealth = true
-    self.Health.bg.multiplier = 0.3
-    self.Power.colorPower = true
-    self.Power.bg.multiplier = 0.3
-    lib.gen_castbar(self)
-    lib.gen_portrait(self)
-    lib.createDebuffs(self)
-  end  ]]
+    self.Health.bg.multiplier = 0.2
+end
   
  --[[ local function CreatePetStyle(self)
     self.width = 180
@@ -136,7 +128,8 @@ local function CreateRaidStyle(self)
 	self.width=85
 	self.height=25
 	self.mystyle="raid"
-	self.hptag="[ku:missinghp]"
+	self.hptag="[ku:raid]"
+	self.hidename=true
 	lib.gen_ppbar(self)
 	initHeader(self)
 	self.Health.colorDisconnected=true
@@ -165,11 +158,11 @@ if cfg.showtot then
     oUF:Spawn("targettarget")  
 end
   
- --[[ if cfg.showfocus then
+if cfg.showfocus then
     oUF:RegisterStyle("oUF_SimpleFocus", CreateFocusStyle)
     oUF:SetActiveStyle("oUF_SimpleFocus")
     oUF:Spawn("focus")  
-  end]]
+end
   
   --[[if cfg.showpet then
     oUF:RegisterStyle("oUF_SimplePet", CreatePetStyle)

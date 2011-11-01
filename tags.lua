@@ -47,3 +47,21 @@ oUF.Tags["ku:default"] = function(unit)
 	return abs.."/"..per.."%"
 end
 oUF.TagEvents["ku:default"]="UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION"
+
+oUF.Tags["ku:raid"] = function(unit)
+	if not UnitIsConnected(unit) then
+		return "D/C"
+	end
+	if UnitIsDead(unit) then
+		return "Dead"
+	end
+	if UnitIsGhost(unit) then
+		return "Ghost"
+	end
+	local min, max = UnitHealth(unit), UnitHealthMax(unit)
+	if min == max and max > 0 then
+		return UnitName(unit)
+	end
+	return "-"..numFormat(max-min)
+end
+oUF.TagEvents["ku:missinghp"] =  "UNIT_NAME_UPDATE UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION"
